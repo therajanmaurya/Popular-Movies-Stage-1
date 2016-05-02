@@ -4,8 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <include
         android:id="@+id/appbar"
         layout="@layout/app_bar"/>
@@ -20,6 +18,8 @@
             android:id="@+id/rv_movies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="@dimen/item_offset"
             android:visibility="gone" />
 
     </opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout>

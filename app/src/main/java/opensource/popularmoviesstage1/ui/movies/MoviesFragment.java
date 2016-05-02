@@ -32,6 +32,7 @@ import opensource.popularmoviesstage1.ui.adapter.EndlessRecyclerOnScrollListener
 import opensource.popularmoviesstage1.ui.adapter.MovieGridAdapter;
 import opensource.popularmoviesstage1.ui.adapter.RecyclerItemClickListner;
 import opensource.popularmoviesstage1.ui.moviedetails.MovieDetailsActivity;
+import opensource.popularmoviesstage1.utils.ItemOffsetDecoration;
 import opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout;
 
 /**
@@ -97,6 +98,10 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListner(getActivity(), this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+
+        //Setting the Equal column spacing
+        ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getActivity(), R.dimen.item_offset);
+        mRecyclerView.addItemDecoration(itemDecoration);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         category = sharedPreferences.getString(getString(R.string.category_key), getString(R.string.pref_default));
