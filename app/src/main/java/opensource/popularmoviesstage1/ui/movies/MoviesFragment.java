@@ -1,15 +1,20 @@
 package opensource.popularmoviesstage1.ui.movies;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +27,7 @@ import butterknife.ButterKnife;
 import opensource.popularmoviesstage1.R;
 import opensource.popularmoviesstage1.data.DataManager;
 import opensource.popularmoviesstage1.data.model.PopularMovies;
+import opensource.popularmoviesstage1.ui.adapter.EndlessRecyclerOnScrollListener;
 import opensource.popularmoviesstage1.ui.adapter.MovieGridAdapter;
 import opensource.popularmoviesstage1.ui.adapter.RecyclerItemClickListner;
 import opensource.popularmoviesstage1.ui.moviedetails.MovieDetailsActivity;
@@ -45,6 +51,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     private MoviesPresenter mMainPresenter;
     private MovieGridAdapter mMovieGridAdapter;
     private String category;
+    private int mPageNumber = 1;
 
     @Override
     public void onItemClick(View childView, int position) {
@@ -73,7 +80,6 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         mPopularMovies = new PopularMovies();
         dataManager = new DataManager();
         mMainPresenter = new MoviesPresenter(dataManager);
-        mMovieGridAdapter = new MovieGridAdapter();
     }
 
 
@@ -86,15 +92,36 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         mToolbar.setTitle(getString(R.string.app_name));
 
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), GRID_LAYOUT_COUNT));
+        final LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(),GRID_LAYOUT_COUNT);
+        mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListner(getActivity(), this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mRecyclerView.setAdapter(mMovieGridAdapter);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         category = sharedPreferences.getString(getString(R.string.category_key), getString(R.string.pref_default));
 
-        mMainPresenter.loadMovies(category,1);
+        mMainPresenter.loadMovies(category,mPageNumber);
+        showProgressbar(true);
+
+        mRecyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int current_page) {
+                ConnectivityManager connMgr = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected())
+                {
+                    mPopularMovies.getResults().add(null);
+                    mMovieGridAdapter.notifyItemInserted(mPopularMovies.getResults().size());
+                    mPageNumber = ++mPageNumber;
+                    mMainPresenter.loadMovies(category,mPageNumber);
+                    Log.i(LOG_TAG, "Loading more");
+                }
+                else
+                {
+                    Log.i(LOG_TAG, "Internet not available. Not loading more posts.");
+                }
+            }
+        });
         return rootView;
     }
 
@@ -106,9 +133,17 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
 
     @Override
     public void showMovies(PopularMovies popularMovies) {
+       if(mPageNumber == 1){
+           mPopularMovies = popularMovies;
+           mMovieGridAdapter = new MovieGridAdapter(getActivity(),popularMovies.getResults());
+           mRecyclerView.setAdapter(mMovieGridAdapter);
+           showProgressbar(false);
+       }else {
+           mPopularMovies.getResults().remove(mPopularMovies.getResults().size()-1);
+           mPopularMovies.getResults().addAll(popularMovies.getResults());
+       }
+
         mRecyclerView.setVisibility(View.VISIBLE);
-        mPopularMovies = popularMovies;
-        mMovieGridAdapter.setResults(popularMovies.getResults());
         mMovieGridAdapter.notifyDataSetChanged();
     }
 
