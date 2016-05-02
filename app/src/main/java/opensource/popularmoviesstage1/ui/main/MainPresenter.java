@@ -37,9 +37,9 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
         mSubscriptions.clear();
     }
 
-    public void loadMovies(){
+    public void loadMovies(String categories,int pageno){
         getMvpView().showProgressbar(true);
-        Subscription mSubscription = mDataManager.getMovies()
+        Subscription mSubscription = mDataManager.getMovies(categories,pageno)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<PopularMovies>() {

@@ -13,7 +13,7 @@ import retrofit2.RxJavaCallAdapterFactory;
 public class BaseApiManager {
 
 
-    String ENDPOINT = "http://api.themoviedb.org/3/";
+    String ENDPOINT = "http://api.themoviedb.org/3/movie/";
 
     public MovieService mMovieService;
 

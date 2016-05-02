@@ -19,7 +19,9 @@ public class DataManager {
      *
      * @return List of Movies
      */
-    public Observable<PopularMovies> getMovies(){
-        return mBaseApiManager.getmMovieApi().getMovies();
+    public Observable<PopularMovies> getMovies(String categories,int pageNo){
+        return mBaseApiManager.getmMovieApi().getMovies(categories,
+                "c2e9da28f7b6430b8e29f24990cdd3de",
+                pageNo);
     }
 }

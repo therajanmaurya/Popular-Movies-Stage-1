@@ -2,6 +2,8 @@ package opensource.popularmoviesstage1.data.remote;
 
 import opensource.popularmoviesstage1.data.model.PopularMovies;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -9,7 +11,9 @@ import rx.Observable;
  */
 public interface MovieService {
 
-    @GET("movie/popular?api_key=" + "c2e9da28f7b6430b8e29f24990cdd3de")
-    Observable<PopularMovies> getMovies();
+    @GET("{categories}")
+    Observable<PopularMovies> getMovies(@Path("categories") String s,
+                                        @Query("api_key") String key,
+                                        @Query("page") int pagination);
 
 }
