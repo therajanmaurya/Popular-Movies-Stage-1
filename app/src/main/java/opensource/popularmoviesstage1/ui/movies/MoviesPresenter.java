@@ -1,4 +1,4 @@
-package opensource.popularmoviesstage1.ui.main;
+package opensource.popularmoviesstage1.ui.movies;
 
 import android.util.Log;
 
@@ -14,20 +14,20 @@ import rx.subscriptions.CompositeSubscription;
 /**
  * Created by RajanMaurya on 02/05/16.
  */
-public class MainPresenter extends BasePresenter<MainMvpView> {
+public class MoviesPresenter extends BasePresenter<MoviesMvpView> {
 
     public final String LOG_TAG = getClass().getSimpleName();
     private DataManager mDataManager;
     private CompositeSubscription mSubscriptions;
 
 
-    public MainPresenter(DataManager dataManager){
+    public MoviesPresenter(DataManager dataManager){
         mDataManager = dataManager;
         mSubscriptions = new CompositeSubscription();
     }
 
     @Override
-    public void attachView(MainMvpView mvpView) {
+    public void attachView(MoviesMvpView mvpView) {
         super.attachView(mvpView);
     }
 

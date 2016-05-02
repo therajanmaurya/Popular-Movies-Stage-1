@@ -1,4 +1,4 @@
-package opensource.popularmoviesstage1.ui.main;
+package opensource.popularmoviesstage1.ui.movies;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import opensource.popularmoviesstage1.R;
 import opensource.popularmoviesstage1.utils.ActivityUtils;
 
-public class MainActivity extends AppCompatActivity {
+public class MoviesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +17,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Setting the Fragment to FrameLayout
-        MainFragment mainFragment = (MainFragment) getSupportFragmentManager()
+        MoviesFragment mainFragment = (MoviesFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.frame_container);
         if (mainFragment == null) {
             // Create the fragment
-            mainFragment = MainFragment.newInstance();
+            mainFragment = MoviesFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mainFragment, R.id.frame_container);
         }

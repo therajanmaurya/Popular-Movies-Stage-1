@@ -1,8 +1,7 @@
-package opensource.popularmoviesstage1.ui.main;
+package opensource.popularmoviesstage1.ui.movies;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,7 +17,6 @@ import com.google.gson.Gson;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import opensource.popularmoviesstage1.R;
 import opensource.popularmoviesstage1.data.DataManager;
 import opensource.popularmoviesstage1.data.model.PopularMovies;
@@ -30,7 +28,7 @@ import opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout;
 /**
  * Created by RajanMaurya on 02/05/16.
  */
-public class MainFragment extends Fragment implements RecyclerItemClickListner.OnItemClickListener, MainMvpView{
+public class MoviesFragment extends Fragment implements RecyclerItemClickListner.OnItemClickListener, MoviesMvpView {
 
     public static final int GRID_LAYOUT_COUNT = 2;
     public  final String LOG_TAG = getClass().getSimpleName();
@@ -42,7 +40,7 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
 
     private PopularMovies mPopularMovies;
     private DataManager dataManager;
-    private MainPresenter mMainPresenter;
+    private MoviesPresenter mMainPresenter;
     private MovieGridAdapter mMovieGridAdapter;
 
     @Override
@@ -58,8 +56,8 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
     }
 
 
-    public static MainFragment newInstance() {
-        MainFragment fragment = new MainFragment();
+    public static MoviesFragment newInstance() {
+        MoviesFragment fragment = new MoviesFragment();
         Bundle args = new Bundle();
         //args.putInt("type", type);
         fragment.setArguments(args);
@@ -71,7 +69,7 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
         super.onCreate(savedInstanceState);
         mPopularMovies = new PopularMovies();
         dataManager = new DataManager();
-        mMainPresenter = new MainPresenter(dataManager);
+        mMainPresenter = new MoviesPresenter(dataManager);
         mMovieGridAdapter = new MovieGridAdapter();
     }
 
