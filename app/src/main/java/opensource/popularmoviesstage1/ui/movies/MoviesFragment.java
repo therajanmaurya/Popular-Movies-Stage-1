@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -100,6 +101,32 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         category = sharedPreferences.getString(getString(R.string.category_key), getString(R.string.pref_default));
 
+
+        mSwipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color.colorPrimary);
+        mSwipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                ConnectivityManager connMgr = (ConnectivityManager) getActivity()
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+                if (networkInfo != null && networkInfo.isConnected()) {
+                    if (mSwipeRefresh.isRefreshing()) {
+                        mPageNumber = 1;
+                        mMainPresenter.loadMovies(category,mPageNumber);
+                        Log.i(LOG_TAG, "Swipe Refresh");
+                    }
+                }
+                else {
+                    Log.i(LOG_TAG, "NO Internet Connection");
+                    if (mSwipeRefresh.isRefreshing()) {
+                        mSwipeRefresh.setRefreshing(false);
+                    }
+                }
+
+            }
+        });
+
+
         mMainPresenter.loadMovies(category,mPageNumber);
         showProgressbar(true);
 
@@ -145,6 +172,9 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
 
         mRecyclerView.setVisibility(View.VISIBLE);
         mMovieGridAdapter.notifyDataSetChanged();
+        if (mSwipeRefresh.isRefreshing()) {
+            mSwipeRefresh.setRefreshing(false);
+        }
     }
 
     @Override
