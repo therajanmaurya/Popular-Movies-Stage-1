@@ -1,11 +1,13 @@
 package opensource.popularmoviesstage1.ui.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import opensource.popularmoviesstage1.R;
+import opensource.popularmoviesstage1.ui.setting.SettingActivity;
 import opensource.popularmoviesstage1.utils.ActivityUtils;
 
 public class MoviesActivity extends AppCompatActivity {
@@ -44,6 +46,8 @@ public class MoviesActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingActivity.class));
+            finish();
             return true;
         }
 

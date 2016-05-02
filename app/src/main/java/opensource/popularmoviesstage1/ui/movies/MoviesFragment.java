@@ -1,7 +1,9 @@
 package opensource.popularmoviesstage1.ui.movies;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -42,6 +44,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     private DataManager dataManager;
     private MoviesPresenter mMainPresenter;
     private MovieGridAdapter mMovieGridAdapter;
+    private String category;
 
     @Override
     public void onItemClick(View childView, int position) {
@@ -88,7 +91,10 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.setAdapter(mMovieGridAdapter);
 
-        mMainPresenter.loadMovies(getString(R.string.category_popular),1);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        category = sharedPreferences.getString(getString(R.string.category_key), getString(R.string.pref_default));
+
+        mMainPresenter.loadMovies(category,1);
         return rootView;
     }
 

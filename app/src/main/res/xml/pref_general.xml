@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="@string/pref_default"
+        android:entries="@array/categories"
+        android:entryValues="@array/categories_value"
+        android:summary="Select categories of movies"
+        android:title="Categories"
+        android:key="@string/category_key" />
+</PreferenceScreen>
