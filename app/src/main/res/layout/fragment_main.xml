@@ -11,13 +11,13 @@
         layout="@layout/app_bar"/>
 
     <opensource.popularmoviesstage1.ui.utils.ScrollChildSwipeRefreshLayout
-        android:id="@+id/swiperefresh"
+        android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/appbar">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rv_movies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone" />
