@@ -22,7 +22,7 @@ import opensource.popularmoviesstage1.ui.utils.ScrollChildSwipeRefreshLayout;
 /**
  * Created by RajanMaurya on 02/05/16.
  */
-public class MainFragment extends Fragment implements RecyclerItemClickListner.OnItemClickListener{
+public class MainFragment extends Fragment implements RecyclerItemClickListner.OnItemClickListener, MainMvpView{
 
     public static final int GRID_LAYOUT_COUNT = 2;
     public  final String LOG_TAG = getClass().getSimpleName();
@@ -76,6 +76,16 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
     @Override public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showMovies() {
+
+    }
+
+    @Override
+    public void showProgressbar(boolean b) {
+
     }
 
 }
