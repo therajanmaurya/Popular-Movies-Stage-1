@@ -1,10 +1,13 @@
 package opensource.popularmoviesstage1.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +17,7 @@ import butterknife.ButterKnife;
 import opensource.popularmoviesstage1.R;
 import opensource.popularmoviesstage1.data.model.Result;
 
-public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.RibotViewHolder> {
+public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.MovieViewHolder> {
 
     private List<Result> mResults;
 
@@ -28,16 +31,18 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Ribo
     }
 
     @Override
-    public RibotViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_recyclerview, parent, false);
-        return new RibotViewHolder(itemView);
+        return new MovieViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(RibotViewHolder holder, int position) {
-        Result result = mResults.get(position);
-
+    public void onBindViewHolder(MovieViewHolder holder, int position) {
+        Picasso.with(holder.itemView.getContext())
+                .load("http://image.tmdb.org/t/p/w500" + mResults.get(position).getPosterPath())
+                .into(holder.moviePoster);
+        Log.d("Poster Image Link" , mResults.get(position).getPosterPath());
     }
 
     @Override
@@ -45,11 +50,11 @@ public class MovieGridAdapter extends RecyclerView.Adapter<MovieGridAdapter.Ribo
         return mResults.size();
     }
 
-    class RibotViewHolder extends RecyclerView.ViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.iv_movieposter) ImageView moviePoster;;
 
-        public RibotViewHolder(View itemView) {
+        public MovieViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

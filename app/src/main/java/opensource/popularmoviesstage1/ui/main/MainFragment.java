@@ -32,7 +32,7 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
     @BindView(R.id.rv_movies) RecyclerView mRecyclerView;
     @BindView(R.id.swipe_refresh) ScrollChildSwipeRefreshLayout mSwipeRefresh;
     @BindView(R.id.progress_circular) ProgressBar mProgressBar;
-    private Unbinder unbinder;
+
 
     private PopularMovies mPopularMovies;
     private DataManager dataManager;
@@ -67,11 +67,11 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
         mMovieGridAdapter = new MovieGridAdapter();
     }
 
-    @Nullable
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        unbinder = ButterKnife.bind(this, rootView);
+        ButterKnife.bind(this, rootView);
         mMainPresenter.attachView(this);
 
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), GRID_LAYOUT_COUNT));
@@ -83,14 +83,15 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
         return rootView;
     }
 
-    @Override public void onDestroyView() {
+    @Override
+    public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
         mMainPresenter.detachView();
     }
 
     @Override
     public void showMovies(PopularMovies popularMovies) {
+        mRecyclerView.setVisibility(View.VISIBLE);
         mMovieGridAdapter.setResults(popularMovies.getResults());
         mMovieGridAdapter.notifyDataSetChanged();
     }
@@ -98,7 +99,7 @@ public class MainFragment extends Fragment implements RecyclerItemClickListner.O
     @Override
     public void showProgressbar(boolean status) {
         if (status){
-            mProgressBar.setVisibility(View.INVISIBLE);
+            mProgressBar.setVisibility(View.VISIBLE);
         }else
             mProgressBar.setVisibility(View.GONE);
     }

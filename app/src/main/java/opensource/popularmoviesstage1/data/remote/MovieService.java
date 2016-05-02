@@ -9,7 +9,7 @@ import rx.Observable;
  */
 public interface MovieService {
 
-    @GET("movie/{category}?api_key=" + "e22ade197291c2b6c56392801d8cd0a3")
+    @GET("movie/popular?api_key=" + "c2e9da28f7b6430b8e29f24990cdd3de")
     Observable<PopularMovies> getMovies();
 
 }

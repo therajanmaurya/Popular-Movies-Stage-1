@@ -1,5 +1,7 @@
 package opensource.popularmoviesstage1.ui.main;
 
+import android.util.Log;
+
 import opensource.popularmoviesstage1.data.DataManager;
 import opensource.popularmoviesstage1.data.model.PopularMovies;
 import opensource.popularmoviesstage1.ui.base.BasePresenter;
@@ -14,6 +16,7 @@ import rx.subscriptions.CompositeSubscription;
  */
 public class MainPresenter extends BasePresenter<MainMvpView> {
 
+    public final String LOG_TAG = getClass().getSimpleName();
     private DataManager mDataManager;
     private CompositeSubscription mSubscriptions;
 
@@ -47,12 +50,13 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d(LOG_TAG,e.getMessage());
                     }
 
                     @Override
                     public void onNext(PopularMovies popularMovies) {
                         getMvpView().showMovies(popularMovies);
+                        Log.d(LOG_TAG, popularMovies.toString());
                     }
                 });
         mSubscriptions.add(mSubscription);
