@@ -7,6 +7,7 @@ import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by RajanMaurya on 02/05/16.
@@ -14,10 +15,12 @@ import rx.schedulers.Schedulers;
 public class MainPresenter extends BasePresenter<MainMvpView> {
 
     private DataManager mDataManager;
-    private Subscription mSubscription;
+    private CompositeSubscription mSubscriptions;
+
 
     public MainPresenter(DataManager dataManager){
         mDataManager = dataManager;
+        mSubscriptions = new CompositeSubscription();
     }
 
     @Override
@@ -28,18 +31,18 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
     @Override
     public void detachView() {
         super.detachView();
-        if (mSubscription != null) mSubscription.unsubscribe();
+        mSubscriptions.clear();
     }
 
     public void loadMovies(){
-
-        mSubscription = mDataManager.syncMovies()
+        getMvpView().showProgressbar(true);
+        Subscription mSubscription = mDataManager.getMovies()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<PopularMovies>() {
                     @Override
                     public void onCompleted() {
-
+                        getMvpView().showProgressbar(false);
                     }
 
                     @Override
@@ -49,10 +52,10 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
 
                     @Override
                     public void onNext(PopularMovies popularMovies) {
-
+                        getMvpView().showMovies(popularMovies);
                     }
                 });
-
+        mSubscriptions.add(mSubscription);
     }
 
 

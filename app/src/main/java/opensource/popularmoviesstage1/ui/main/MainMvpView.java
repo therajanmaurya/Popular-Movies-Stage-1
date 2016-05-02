@@ -1,5 +1,6 @@
 package opensource.popularmoviesstage1.ui.main;
 
+import opensource.popularmoviesstage1.data.model.PopularMovies;
 import opensource.popularmoviesstage1.ui.base.MvpView;
 
 /**
@@ -7,6 +8,6 @@ import opensource.popularmoviesstage1.ui.base.MvpView;
  */
 public interface MainMvpView extends MvpView {
 
-    void showMovies();
+    void showMovies(PopularMovies popularMovies);
     void showProgressbar(boolean b);
 }

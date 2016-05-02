@@ -10,7 +10,7 @@
         android:id="@+id/appbar"
         layout="@layout/app_bar"/>
 
-    <opensource.popularmoviesstage1.ui.utils.ScrollChildSwipeRefreshLayout
+    <opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:visibility="gone" />
 
-    </opensource.popularmoviesstage1.ui.utils.ScrollChildSwipeRefreshLayout>
+    </opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout>
 
     <ProgressBar
         android:id="@+id/progress_circular"

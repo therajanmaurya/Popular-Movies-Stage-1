@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import opensource.popularmoviesstage1.R;
-import opensource.popularmoviesstage1.ui.utils.ActivityUtils;
+import opensource.popularmoviesstage1.utils.ActivityUtils;
 
 public class MainActivity extends AppCompatActivity {
 

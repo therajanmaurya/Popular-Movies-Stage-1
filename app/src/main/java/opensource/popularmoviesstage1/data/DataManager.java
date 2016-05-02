@@ -1,6 +1,7 @@
 package opensource.popularmoviesstage1.data;
 
 import opensource.popularmoviesstage1.data.model.PopularMovies;
+import opensource.popularmoviesstage1.data.remote.BaseApiManager;
 import opensource.popularmoviesstage1.data.remote.MovieService;
 import rx.Observable;
 
@@ -9,13 +10,16 @@ import rx.Observable;
  */
 public class DataManager {
 
-    private MovieService mMovieService;
+    public BaseApiManager mBaseApiManager = new BaseApiManager();
 
-    public DataManager(MovieService movieService){
-        mMovieService = movieService;
+    public DataManager(){
     }
 
-    public Observable<PopularMovies> syncMovies(){
-        return mMovieService.getMovies();
+    /**
+     *
+     * @return List of Movies
+     */
+    public Observable<PopularMovies> getMovies(){
+        return mBaseApiManager.getmMovieApi().getMovies();
     }
 }

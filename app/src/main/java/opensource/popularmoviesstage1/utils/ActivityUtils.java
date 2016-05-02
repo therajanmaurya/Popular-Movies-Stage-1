@@ -1,4 +1,4 @@
-package opensource.popularmoviesstage1.ui.utils;
+package opensource.popularmoviesstage1.utils;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
