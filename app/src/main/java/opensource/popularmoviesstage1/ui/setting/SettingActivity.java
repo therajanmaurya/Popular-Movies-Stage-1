@@ -1,6 +1,5 @@
 package opensource.popularmoviesstage1.ui.setting;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -8,7 +7,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 
 import opensource.popularmoviesstage1.R;
-import opensource.popularmoviesstage1.ui.movies.MoviesActivity;
 
 /**
  * @author Rajan Maurya
@@ -48,10 +46,4 @@ public class SettingActivity extends PreferenceActivity implements Preference.On
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this, MoviesActivity.class));
-
-    }
 }

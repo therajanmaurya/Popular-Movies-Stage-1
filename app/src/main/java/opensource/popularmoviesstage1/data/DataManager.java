@@ -1,5 +1,6 @@
 package opensource.popularmoviesstage1.data;
 
+import opensource.popularmoviesstage1.BuildConfig;
 import opensource.popularmoviesstage1.data.model.PopularMovies;
 import opensource.popularmoviesstage1.data.remote.BaseApiManager;
 import opensource.popularmoviesstage1.data.remote.MovieService;
@@ -11,6 +12,7 @@ import rx.Observable;
 public class DataManager {
 
     public BaseApiManager mBaseApiManager = new BaseApiManager();
+    private String API_KEY = BuildConfig.Themoviedb_API_key;
 
     public DataManager(){
     }
@@ -21,7 +23,7 @@ public class DataManager {
      */
     public Observable<PopularMovies> getMovies(String categories,int pageNo){
         return mBaseApiManager.getmMovieApi().getMovies(categories,
-                "c2e9da28f7b6430b8e29f24990cdd3de",
+                API_KEY,
                 pageNo);
     }
 }

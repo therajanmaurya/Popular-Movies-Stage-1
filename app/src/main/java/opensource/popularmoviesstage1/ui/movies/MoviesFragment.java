@@ -190,4 +190,13 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
             mProgressBar.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        category = sharedPreferences.getString(getString(R.string.category_key),
+                getString(R.string.pref_default));
+        mPageNumber = 1;
+        mMainPresenter.loadMovies(category,mPageNumber);
+    }
 }
