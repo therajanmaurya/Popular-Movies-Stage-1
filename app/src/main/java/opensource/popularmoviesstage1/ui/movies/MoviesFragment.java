@@ -198,5 +198,6 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
                 getString(R.string.pref_default));
         mPageNumber = 1;
         mMainPresenter.loadMovies(category,mPageNumber);
+        Log.d(LOG_TAG,"OnResume");
     }
 }

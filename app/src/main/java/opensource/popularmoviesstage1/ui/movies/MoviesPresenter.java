@@ -18,12 +18,11 @@ public class MoviesPresenter extends BasePresenter<MoviesMvpView> {
 
     public final String LOG_TAG = getClass().getSimpleName();
     private DataManager mDataManager;
-    private CompositeSubscription mSubscriptions;
+    private Subscription mSubscriptions;
 
 
     public MoviesPresenter(DataManager dataManager){
         mDataManager = dataManager;
-        mSubscriptions = new CompositeSubscription();
     }
 
     @Override
@@ -34,11 +33,11 @@ public class MoviesPresenter extends BasePresenter<MoviesMvpView> {
     @Override
     public void detachView() {
         super.detachView();
-        mSubscriptions.clear();
+        if (mSubscriptions != null) mSubscriptions.unsubscribe();
     }
 
     public void loadMovies(String categories,int pageno){
-        Subscription mSubscription = mDataManager.getMovies(categories,pageno)
+        mSubscriptions = mDataManager.getMovies(categories,pageno)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Observer<PopularMovies>() {
@@ -57,7 +56,6 @@ public class MoviesPresenter extends BasePresenter<MoviesMvpView> {
                         Log.d(LOG_TAG, popularMovies.toString());
                     }
                 });
-        mSubscriptions.add(mSubscription);
     }
 
 
