@@ -1,9 +1,10 @@
 package opensource.popularmoviesstage1.ui.moviedetails;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,14 +26,28 @@ public class MovieDetailsFragment extends Fragment {
 
     private Result mMovieDetails;
 
-    @BindView(R.id.iv_image) ImageView mPosterImage;
-    @BindView(R.id.tv_title) TextView mTitle;
-    @BindView(R.id.plot) TextView mPlot;
-    @BindView(R.id.rating) TextView mRating;
-    @BindView(R.id.rdate) TextView mReleaseDate;
+    @BindView(R.id.iv_image)
+    ImageView mPosterImage;
+
+    @BindView(R.id.tv_title)
+    TextView mTitle;
+
+    @BindView(R.id.plot)
+    TextView mPlot;
+
+    @BindView(R.id.rating)
+    TextView mRating;
+
+    @BindView(R.id.rdate)
+    TextView mReleaseDate;
+
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
 
     @BindView(R.id.collapsingToolbar)
     CollapsingToolbarLayout collapsingToolbarLayout;
+
+
 
     public MovieDetailsFragment(Result result){
         mMovieDetails = result;
@@ -46,10 +61,19 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
+
         ButterKnife.bind(this, rootView);
 
+        ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        // add back arrow to toolbar
+        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null){
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled
+                    (true);
+        }
+
         Picasso.with(getActivity())
-                .load("http://image.tmdb.org/t/p/w500" + mMovieDetails.getPosterPath())
+                .load(getResources().getString(R.string.image_base_url)
+                        + mMovieDetails.getPosterPath())
                 .into(mPosterImage);
 
         mTitle.setText(mMovieDetails.getOriginalTitle());
@@ -61,4 +85,5 @@ public class MovieDetailsFragment extends Fragment {
 
         return rootView;
     }
+
 }

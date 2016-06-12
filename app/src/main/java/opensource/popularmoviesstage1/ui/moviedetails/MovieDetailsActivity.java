@@ -3,12 +3,14 @@ package opensource.popularmoviesstage1.ui.moviedetails;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.google.gson.Gson;
 
 import opensource.popularmoviesstage1.R;
 import opensource.popularmoviesstage1.data.model.Result;
 import opensource.popularmoviesstage1.utils.ActivityUtils;
+import timber.log.Timber;
 
 /**
  * Created by Rajan Maurya on 2/5/16.
@@ -32,5 +34,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mainFragment, R.id.frame_container);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            Timber.d("Home pressed");
+            finish();
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 }
