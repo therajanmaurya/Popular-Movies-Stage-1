@@ -77,17 +77,16 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
                     .getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        showMovieDetailsUI();
+
 
         return rootView;
     }
 
-    @Override
-    public void showProgressbar(boolean b) {
-
-    }
 
     @Override
     public void showMovieDetailsUI() {
+
         Picasso.with(getActivity())
                 .load(getResources().getString(R.string.image_base_url)
                         + mMovieDetails.getPosterPath())
@@ -98,6 +97,11 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
         mRating.setText("User Rating : " + mMovieDetails.getVoteAverage());
         mReleaseDate.setText("Release Date : " + mMovieDetails.getReleaseDate());
         collapsingToolbarLayout.setTitle(mMovieDetails.getOriginalTitle());
+    }
+
+    @Override
+    public void showProgressbar(boolean b) {
+
     }
 
     @Override
