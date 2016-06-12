@@ -34,9 +34,12 @@ public class TrailerYoutubeAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_detail_trailers, parent, false);
-        return new ViewHolder(itemView);
+        RecyclerView.ViewHolder vh;
+        View v = LayoutInflater.from(parent.getContext()).inflate(
+                R.layout.item_detail_trailers, parent, false);
+        vh = new ViewHolder(v);
+
+        return vh;
     }
 
     @Override

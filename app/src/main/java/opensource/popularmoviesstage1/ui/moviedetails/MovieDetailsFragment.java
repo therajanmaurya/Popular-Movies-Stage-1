@@ -119,8 +119,8 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
     @Override
     public void showMovieDetailsUI() {
 
-        layoutManager = new LinearLayoutManager(getActivity(),
-                LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new LinearLayoutManager(
+                getActivity(), LinearLayoutManager.HORIZONTAL, false);
         mRecyclerViewTrailer.setLayoutManager(layoutManager);
         mRecyclerViewTrailer.addOnItemTouchListener(
                 new RecyclerItemClickListner(getActivity(), this));
