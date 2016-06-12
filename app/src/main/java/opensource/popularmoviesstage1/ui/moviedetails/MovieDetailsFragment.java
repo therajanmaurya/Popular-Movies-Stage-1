@@ -16,12 +16,14 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import opensource.popularmoviesstage1.R;
+import opensource.popularmoviesstage1.data.DataManager;
 import opensource.popularmoviesstage1.data.model.Result;
+import opensource.popularmoviesstage1.data.model.Trailers;
 
 /**
  * Created by Rajan Maurya on 2/5/16.
  */
-public class MovieDetailsFragment extends Fragment {
+public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpView{
 
 
     private Result mMovieDetails;
@@ -47,6 +49,8 @@ public class MovieDetailsFragment extends Fragment {
     @BindView(R.id.collapsingToolbar)
     CollapsingToolbarLayout collapsingToolbarLayout;
 
+    DataManager dataManager;
+    MovieDetailsPresenter mMovieDetailsPresenter;
 
 
     public MovieDetailsFragment(Result result){
@@ -56,6 +60,8 @@ public class MovieDetailsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dataManager = new DataManager();
+        mMovieDetailsPresenter = new MovieDetailsPresenter(dataManager);
     }
 
     @Override
@@ -63,14 +69,25 @@ public class MovieDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_details, container, false);
 
         ButterKnife.bind(this, rootView);
+        mMovieDetailsPresenter.attachView(this);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        // add back arrow to toolbar
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null){
-            ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled
-                    (true);
+            ((AppCompatActivity) getActivity())
+                    .getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+
+        return rootView;
+    }
+
+    @Override
+    public void showProgressbar(boolean b) {
+
+    }
+
+    @Override
+    public void showMovieDetailsUI() {
         Picasso.with(getActivity())
                 .load(getResources().getString(R.string.image_base_url)
                         + mMovieDetails.getPosterPath())
@@ -81,9 +98,21 @@ public class MovieDetailsFragment extends Fragment {
         mRating.setText("User Rating : " + mMovieDetails.getVoteAverage());
         mReleaseDate.setText("Release Date : " + mMovieDetails.getReleaseDate());
         collapsingToolbarLayout.setTitle(mMovieDetails.getOriginalTitle());
-
-
-        return rootView;
     }
 
+    @Override
+    public void showTrailers(Trailers videos) {
+
+    }
+
+    @Override
+    public void showFetchingError(String s) {
+
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mMovieDetailsPresenter.detachView();
+    }
 }

@@ -8,11 +8,11 @@ import java.util.ArrayList;
 /**
  * Created by Rajan Maurya on 12/6/16.
  */
-public class Videos implements Parcelable {
+public class Trailers implements Parcelable {
 
     public int id;
 
-    public ArrayList<VideoResults> results;
+    public ArrayList<TrailersResults> results;
 
     public int getId() {
         return id;
@@ -22,11 +22,11 @@ public class Videos implements Parcelable {
         this.id = id;
     }
 
-    public ArrayList<VideoResults> getResults() {
+    public ArrayList<TrailersResults> getResults() {
         return results;
     }
 
-    public void setResults(ArrayList<VideoResults> results) {
+    public void setResults(ArrayList<TrailersResults> results) {
         this.results = results;
     }
 
@@ -41,23 +41,23 @@ public class Videos implements Parcelable {
         dest.writeTypedList(results);
     }
 
-    public Videos() {
+    public Trailers() {
     }
 
-    protected Videos(Parcel in) {
+    protected Trailers(Parcel in) {
         this.id = in.readInt();
-        this.results = in.createTypedArrayList(VideoResults.CREATOR);
+        this.results = in.createTypedArrayList(TrailersResults.CREATOR);
     }
 
-    public static final Parcelable.Creator<Videos> CREATOR = new Parcelable.Creator<Videos>() {
+    public static final Parcelable.Creator<Trailers> CREATOR = new Parcelable.Creator<Trailers>() {
         @Override
-        public Videos createFromParcel(Parcel source) {
-            return new Videos(source);
+        public Trailers createFromParcel(Parcel source) {
+            return new Trailers(source);
         }
 
         @Override
-        public Videos[] newArray(int size) {
-            return new Videos[size];
+        public Trailers[] newArray(int size) {
+            return new Trailers[size];
         }
     };
 }

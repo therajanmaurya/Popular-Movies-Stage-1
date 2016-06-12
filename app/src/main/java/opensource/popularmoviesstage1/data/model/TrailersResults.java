@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Created by Rajan Maurya on 12/6/16.
  */
-public class VideoResults implements Parcelable {
+public class TrailersResults implements Parcelable {
 
     public String id;
 
@@ -110,10 +110,10 @@ public class VideoResults implements Parcelable {
         dest.writeString(this.type);
     }
 
-    public VideoResults() {
+    public TrailersResults() {
     }
 
-    protected VideoResults(Parcel in) {
+    protected TrailersResults(Parcel in) {
         this.id = in.readString();
         this.ISO_639_1 = in.readString();
         this.ISO_3166_1 = in.readString();
@@ -124,15 +124,15 @@ public class VideoResults implements Parcelable {
         this.type = in.readString();
     }
 
-    public static final Parcelable.Creator<VideoResults> CREATOR = new Parcelable.Creator<VideoResults>() {
+    public static final Parcelable.Creator<TrailersResults> CREATOR = new Parcelable.Creator<TrailersResults>() {
         @Override
-        public VideoResults createFromParcel(Parcel source) {
-            return new VideoResults(source);
+        public TrailersResults createFromParcel(Parcel source) {
+            return new TrailersResults(source);
         }
 
         @Override
-        public VideoResults[] newArray(int size) {
-            return new VideoResults[size];
+        public TrailersResults[] newArray(int size) {
+            return new TrailersResults[size];
         }
     };
 }

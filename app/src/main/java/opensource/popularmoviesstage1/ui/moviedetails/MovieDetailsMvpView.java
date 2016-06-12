@@ -1,6 +1,6 @@
 package opensource.popularmoviesstage1.ui.moviedetails;
 
-import opensource.popularmoviesstage1.data.model.Videos;
+import opensource.popularmoviesstage1.data.model.Trailers;
 import opensource.popularmoviesstage1.ui.base.MvpView;
 
 /**
@@ -10,7 +10,9 @@ public interface MovieDetailsMvpView extends MvpView {
 
     void showProgressbar(boolean b);
 
-    void showTrailers(Videos videos);
+    void showMovieDetailsUI();
+
+    void showTrailers(Trailers videos);
 
     void showFetchingError(String s);
 }

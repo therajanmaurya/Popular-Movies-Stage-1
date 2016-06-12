@@ -2,7 +2,7 @@ package opensource.popularmoviesstage1.data.remote;
 
 import opensource.popularmoviesstage1.data.model.PopularMovies;
 import opensource.popularmoviesstage1.data.model.Reviews;
-import opensource.popularmoviesstage1.data.model.Videos;
+import opensource.popularmoviesstage1.data.model.Trailers;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -20,7 +20,7 @@ public interface MovieService {
 
 
     @GET("movie/{id}/videos")
-    Observable<Videos> getMovieTrailers(@Path("id") int id,
+    Observable<Trailers> getMovieTrailers(@Path("id") int id,
                                         @Query("api_key") String key,
                                         @Query("page") int pagination);
 

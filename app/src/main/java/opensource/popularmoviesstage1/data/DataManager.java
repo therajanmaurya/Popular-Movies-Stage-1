@@ -3,7 +3,7 @@ package opensource.popularmoviesstage1.data;
 import opensource.popularmoviesstage1.BuildConfig;
 import opensource.popularmoviesstage1.data.model.PopularMovies;
 import opensource.popularmoviesstage1.data.model.Reviews;
-import opensource.popularmoviesstage1.data.model.Videos;
+import opensource.popularmoviesstage1.data.model.Trailers;
 import opensource.popularmoviesstage1.data.remote.BaseApiManager;
 import rx.Observable;
 
@@ -32,7 +32,7 @@ public class DataManager {
      * @param pageNo Pagination of the Api
      * @return Model of the Trailer "Videos"
      */
-    public Observable<Videos> getTrailers(int id, int pageNo) {
+    public Observable<Trailers> getTrailers(int id, int pageNo) {
         return mBaseApiManager.getMovieApi().getMovieTrailers(id, API_KEY,pageNo);
     }
 

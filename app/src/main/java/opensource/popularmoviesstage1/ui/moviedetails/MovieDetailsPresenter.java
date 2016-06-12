@@ -1,7 +1,7 @@
 package opensource.popularmoviesstage1.ui.moviedetails;
 
 import opensource.popularmoviesstage1.data.DataManager;
-import opensource.popularmoviesstage1.data.model.Videos;
+import opensource.popularmoviesstage1.data.model.Trailers;
 import opensource.popularmoviesstage1.ui.base.BasePresenter;
 import rx.Subscriber;
 import rx.Subscription;
@@ -40,7 +40,7 @@ public class MovieDetailsPresenter extends BasePresenter<MovieDetailsMvpView> {
         mSubscriptions = mDataManager.getTrailers(id, pageNo)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Subscriber<Videos>() {
+                .subscribe(new Subscriber<Trailers>() {
                     @Override
                     public void onCompleted() {
                         getMvpView().showProgressbar(false);
@@ -53,7 +53,7 @@ public class MovieDetailsPresenter extends BasePresenter<MovieDetailsMvpView> {
                     }
 
                     @Override
-                    public void onNext(Videos videos) {
+                    public void onNext(Trailers videos) {
                         getMvpView().showProgressbar(false);
                         getMvpView().showTrailers(videos);
                     }
