@@ -17,6 +17,12 @@ import timber.log.Timber;
  */
 public class MovieDetailsActivity extends AppCompatActivity {
 
+
+    public MovieDetailsActivity() {
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -11,35 +11,36 @@ import java.util.List;
 public class Result implements Parcelable {
 
     @SerializedName("poster_path")
-    private String posterPath;
-    private Boolean adult;
+    public String posterPath;
 
-    private String overview;
+    public Boolean adult;
+
+    public String overview;
 
     @SerializedName("release_date")
-    private String releaseDate;
+    public String releaseDate;
 
     @SerializedName("genre_ids")
-    private List<Integer> genreIds;
-    private int id;
+    public List<Integer> genreIds;
+    public int id;
 
     @SerializedName("original_title")
-    private String originalTitle;
+    public String originalTitle;
 
     @SerializedName("original_language")
-    private String originalLanguage;
-    private String title;
+    public String originalLanguage;
+    public String title;
 
     @SerializedName("backdrop_path")
-    private String backdropPath;
-    private Double popularity;
+    public String backdropPath;
+    public Double popularity;
 
     @SerializedName("vote_count")
-    private int voteCount;
-    private Boolean video;
+    public int voteCount;
+    public Boolean video;
 
     @SerializedName("vote_average")
-    private Double voteAverage;
+    public Double voteAverage;
 
     public String getPosterPath() {
         return posterPath;

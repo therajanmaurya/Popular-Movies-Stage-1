@@ -18,7 +18,7 @@ public class TrailersResults implements Parcelable {
     @SerializedName("iso_3166_1")
     public String ISO_3166_1;
 
-    public String Key;
+    public String key;
 
     public String name;
 
@@ -53,11 +53,11 @@ public class TrailersResults implements Parcelable {
     }
 
     public String getKey() {
-        return Key;
+        return key;
     }
 
     public void setKey(String key) {
-        Key = key;
+        this.key = key;
     }
 
     public String getName() {
@@ -103,7 +103,7 @@ public class TrailersResults implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.ISO_639_1);
         dest.writeString(this.ISO_3166_1);
-        dest.writeString(this.Key);
+        dest.writeString(this.key);
         dest.writeString(this.name);
         dest.writeString(this.site);
         dest.writeInt(this.size);
@@ -117,7 +117,7 @@ public class TrailersResults implements Parcelable {
         this.id = in.readString();
         this.ISO_639_1 = in.readString();
         this.ISO_3166_1 = in.readString();
-        this.Key = in.readString();
+        this.key = in.readString();
         this.name = in.readString();
         this.site = in.readString();
         this.size = in.readInt();

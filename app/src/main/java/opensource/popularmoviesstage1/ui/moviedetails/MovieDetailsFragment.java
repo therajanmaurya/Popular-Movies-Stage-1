@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,6 +36,8 @@ import opensource.popularmoviesstage1.ui.adapter.TrailerYoutubeAdapter;
 public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpView,
         RecyclerItemClickListner.OnItemClickListener {
 
+
+    public final String LOG_TAG = getClass().getSimpleName();
 
     private Result mMovieDetails;
     private Trailers mTrailers;
@@ -73,6 +76,9 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
 
     @Override
     public void onItemClick(View childView, int position) {
+
+        Log.d(LOG_TAG, mTrailers.getResults().get(position).getKey());
+
         Intent intent = YouTubeStandalonePlayer.createVideoIntent(getActivity(),
                 getResources().getString(R.string.google_api_key),
                 mTrailers.getResults().get(position).getKey(), 100, true, false);
@@ -88,9 +94,15 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
         mMovieDetails = result;
     }
 
+    public MovieDetailsFragment() {
+
+    }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mTrailers = new Trailers();
         dataManager = new DataManager();
         mMovieDetailsPresenter = new MovieDetailsPresenter(dataManager);
     }
@@ -126,8 +138,10 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
                 new RecyclerItemClickListner(getActivity(), this));
         mRecyclerViewTrailer.setItemAnimator(new DefaultItemAnimator());
 
+        Log.d(LOG_TAG, mMovieDetails.getPosterPath()+ "Path");
+
         Picasso.with(getActivity())
-                .load(getResources().getString(R.string.image_base_url)
+                .load(getActivity().getResources().getString(R.string.image_base_url)
                         + mMovieDetails.getPosterPath())
                 .into(mPosterImage);
 
@@ -150,6 +164,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
     @Override
     public void showTrailers(Trailers videos) {
         mTrailers = videos;
+
         mTrailerYoutubeAdapter = new TrailerYoutubeAdapter(getActivity(), mTrailers);
         mRecyclerViewTrailer.setAdapter(mTrailerYoutubeAdapter);
     }
