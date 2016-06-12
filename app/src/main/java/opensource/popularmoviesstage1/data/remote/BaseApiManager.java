@@ -13,7 +13,7 @@ import retrofit2.RxJavaCallAdapterFactory;
 public class BaseApiManager {
 
 
-    String ENDPOINT = "http://api.themoviedb.org/3/movie/";
+    String ENDPOINT = "http://api.themoviedb.org/3/";
 
     public MovieService mMovieService;
 
@@ -26,6 +26,11 @@ public class BaseApiManager {
 
     private <T> T createApi(Class<T> clazz, String ENDPOINT) {
 
+        /*HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(logging);
+*/
         Gson gson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
                 .create();
@@ -38,7 +43,7 @@ public class BaseApiManager {
         return  retrofit.create(clazz);
     }
 
-    public MovieService getmMovieApi(){
+    public MovieService getMovieApi(){
         return mMovieService;
     }
 }

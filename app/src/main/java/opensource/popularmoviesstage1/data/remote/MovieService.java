@@ -11,9 +11,13 @@ import rx.Observable;
  */
 public interface MovieService {
 
-    @GET("{categories}")
+    @GET("movie/{categories}")
     Observable<PopularMovies> getMovies(@Path("categories") String s,
                                         @Query("api_key") String key,
                                         @Query("page") int pagination);
+
+
+    /*@GET("/movie/{id}/videos")
+    Observable*/
 
 }
