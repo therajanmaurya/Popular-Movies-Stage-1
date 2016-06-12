@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Result implements Parcelable {
+public class MovieResult implements Parcelable {
 
     @SerializedName("poster_path")
     public String posterPath;
@@ -40,7 +40,7 @@ public class Result implements Parcelable {
     public Boolean video;
 
     @SerializedName("vote_average")
-    public Double voteAverage;
+    public Float voteAverage;
 
     public String getPosterPath() {
         return posterPath;
@@ -146,11 +146,11 @@ public class Result implements Parcelable {
         this.video = video;
     }
 
-    public Double getVoteAverage() {
+    public Float getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(Float voteAverage) {
         this.voteAverage = voteAverage;
     }
 
@@ -177,10 +177,10 @@ public class Result implements Parcelable {
         dest.writeValue(this.voteAverage);
     }
 
-    public Result() {
+    public MovieResult() {
     }
 
-    protected Result(Parcel in) {
+    protected MovieResult(Parcel in) {
         this.posterPath = in.readString();
         this.adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.overview = in.readString();
@@ -195,18 +195,18 @@ public class Result implements Parcelable {
         this.popularity = (Double) in.readValue(Double.class.getClassLoader());
         this.voteCount = in.readInt();
         this.video = (Boolean) in.readValue(Boolean.class.getClassLoader());
-        this.voteAverage = (Double) in.readValue(Double.class.getClassLoader());
+        this.voteAverage = (Float) in.readValue(Double.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<Result> CREATOR = new Parcelable.Creator<Result>() {
+    public static final Parcelable.Creator<MovieResult> CREATOR = new Parcelable.Creator<MovieResult>() {
         @Override
-        public Result createFromParcel(Parcel source) {
-            return new Result(source);
+        public MovieResult createFromParcel(Parcel source) {
+            return new MovieResult(source);
         }
 
         @Override
-        public Result[] newArray(int size) {
-            return new Result[size];
+        public MovieResult[] newArray(int size) {
+            return new MovieResult[size];
         }
     };
 }

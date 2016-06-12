@@ -1,6 +1,8 @@
 package opensource.popularmoviesstage1.ui.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.youtube.player.YouTubeInitializationResult;
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import com.google.android.youtube.player.YouTubeThumbnailLoader;
 import com.google.android.youtube.player.YouTubeThumbnailView;
 
@@ -93,7 +96,7 @@ public class TrailerYoutubeAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.tv_titletrailer)
         TextView mTitle;
@@ -110,6 +113,16 @@ public class TrailerYoutubeAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            mPlayButton.setOnClickListener(this);
+        }
+
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, mContext
+                    .getResources().getString(R.string.google_api_key),
+                    mTrailers.getResults().get(getLayoutPosition()).getKey(), 100, true, false);
+            mContext.startActivity(intent);
         }
     }
 }

@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import com.google.gson.Gson;
 
 import opensource.popularmoviesstage1.R;
-import opensource.popularmoviesstage1.data.model.Result;
+import opensource.popularmoviesstage1.data.model.MovieResult;
 import opensource.popularmoviesstage1.utils.ActivityUtils;
 import timber.log.Timber;
 
@@ -29,7 +29,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Intent intent = getIntent();
-        Result result = (new Gson()).fromJson(intent.getStringExtra("MOVIE_DETAILS"), Result.class);
+        MovieResult result = (new Gson()).fromJson(intent.getStringExtra("MOVIE_DETAILS"), MovieResult.class);
 
         //Setting the Fragment to FrameLayout
         MovieDetailsFragment mainFragment = (MovieDetailsFragment) getSupportFragmentManager()

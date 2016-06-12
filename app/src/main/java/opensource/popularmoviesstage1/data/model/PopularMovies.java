@@ -11,7 +11,7 @@ import java.util.List;
 public class PopularMovies implements Parcelable {
 
     private int page;
-    private List<Result> results;
+    private List<MovieResult> results;
 
     @SerializedName("total_results")
     private long totalResults;
@@ -27,11 +27,11 @@ public class PopularMovies implements Parcelable {
         this.page = page;
     }
 
-    public List<Result> getResults() {
+    public List<MovieResult> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<MovieResult> results) {
         this.results = results;
     }
 
@@ -69,8 +69,8 @@ public class PopularMovies implements Parcelable {
 
     protected PopularMovies(Parcel in) {
         this.page = in.readInt();
-        this.results = new ArrayList<Result>();
-        in.readList(this.results, Result.class.getClassLoader());
+        this.results = new ArrayList<MovieResult>();
+        in.readList(this.results, MovieResult.class.getClassLoader());
         this.totalResults = in.readLong();
         this.totalPages = in.readInt();
     }

@@ -52,4 +52,5 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile 'com.jakewharton.timber:timber:4.1.0'
     compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile 'com.github.satyan:sugar:1.4'
 }

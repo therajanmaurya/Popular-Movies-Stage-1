@@ -13,20 +13,20 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import opensource.popularmoviesstage1.R;
-import opensource.popularmoviesstage1.data.model.Result;
+import opensource.popularmoviesstage1.data.model.MovieResult;
 
 public class MovieGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Result> mResults;
+    private List<MovieResult> mResults;
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
 
 
-    public MovieGridAdapter(Context context, List<Result> results) {
+    public MovieGridAdapter(Context context, List<MovieResult> results) {
         mResults = results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<MovieResult> results) {
         mResults = results;
     }
 
