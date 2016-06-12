@@ -259,7 +259,11 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mPopularMovies = savedInstanceState.getParcelable("MoviesList");
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            mPopularMovies = savedInstanceState.getParcelable("MoviesList");
+        }
+
     }
 
 }
