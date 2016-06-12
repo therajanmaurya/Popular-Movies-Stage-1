@@ -60,7 +60,8 @@ public class MovieGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ViewHolder) {
             Picasso.with(holder.itemView.getContext())
-                    .load("http://image.tmdb.org/t/p/w500" + mResults.get(position).getPosterPath())
+                    .load("http://image.tmdb.org/t/p/w500" +
+                            mResults.get(position).getPosterPath())
                     .into(((ViewHolder) holder).moviePoster);
             Log.d("Poster Image Link", mResults.get(position).getPosterPath());
         }

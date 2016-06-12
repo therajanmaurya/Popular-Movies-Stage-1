@@ -21,8 +21,8 @@ public interface MovieService {
 
     @GET("movie/{id}/videos")
     Observable<Trailers> getMovieTrailers(@Path("id") int id,
-                                        @Query("api_key") String key,
-                                        @Query("page") int pagination);
+                                          @Query("api_key") String key,
+                                          @Query("page") int pagination);
 
     @GET("movie/{id}/reviews")
     Observable<Reviews> getMovieReviews(@Path("id") int id,

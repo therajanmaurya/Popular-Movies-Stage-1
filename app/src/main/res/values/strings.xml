@@ -8,6 +8,7 @@
     <string name="pref_default">popular</string>
     <string name="image_base_url">http://image.tmdb.org/t/p/w500</string>
 
+
     <string-array name="categories">
         <item>Popular Movies</item>
         <item>Top Rated Movies</item>

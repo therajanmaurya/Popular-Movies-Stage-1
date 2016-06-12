@@ -13,8 +13,6 @@ import rx.schedulers.Schedulers;
  */
 public class MovieDetailsPresenter extends BasePresenter<MovieDetailsMvpView> {
 
-
-    public final String LOG_TAG = getClass().getSimpleName();
     private DataManager mDataManager;
     private Subscription mSubscriptions;
 
