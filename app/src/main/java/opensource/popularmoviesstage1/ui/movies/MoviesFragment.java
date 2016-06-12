@@ -207,19 +207,6 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        /*SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
-                (getActivity());
-        category = sharedPreferences.getString(getString(R.string.category_key),
-                getString(R.string.pref_default));
-        mPageNumber = 1;
-        mMainPresenter.loadMovies(category, mPageNumber);
-        Log.d(LOG_TAG, "OnResume");*/
-    }
-
-
-    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_main, menu);
     }
@@ -260,6 +247,19 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         });
 
         popup.show();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelable("MoviesList", mPopularMovies);
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        mPopularMovies = savedInstanceState.getParcelable("MoviesList");
     }
 
 }
