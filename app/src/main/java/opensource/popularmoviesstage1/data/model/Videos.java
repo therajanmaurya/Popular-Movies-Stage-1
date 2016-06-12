@@ -10,8 +10,9 @@ import java.util.ArrayList;
  */
 public class Videos implements Parcelable {
 
-    int id;
-    ArrayList<VideoResults> results;
+    public int id;
+
+    public ArrayList<VideoResults> results;
 
     public int getId() {
         return id;

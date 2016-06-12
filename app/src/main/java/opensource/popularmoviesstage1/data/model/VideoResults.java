@@ -10,23 +10,23 @@ import com.google.gson.annotations.SerializedName;
  */
 public class VideoResults implements Parcelable {
 
-    String id;
+    public String id;
 
     @SerializedName("iso_639_1")
-    String ISO_639_1;
+    public String ISO_639_1;
 
     @SerializedName("iso_3166_1")
-    String ISO_3166_1;
+    public String ISO_3166_1;
 
-    String Key;
+    public String Key;
 
-    String name;
+    public String name;
 
-    String site;
+    public String site;
 
-    int size;
+    public int size;
 
-    String type;
+    public String type;
 
     public String getId() {
         return id;
