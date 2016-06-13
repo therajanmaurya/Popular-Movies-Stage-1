@@ -1,5 +1,6 @@
 package opensource.popularmoviesstage1.ui.reviews;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -17,12 +18,16 @@ public class ReviewsActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+        final Intent intent = getIntent();
+        int movieId = intent.getIntExtra("MovieId",269149);
+
         //Setting the Fragment to FrameLayout
         ReviewsFragment mainFragment = (ReviewsFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.frame_container);
         if (mainFragment == null) {
             // Create the fragment
-            mainFragment = ReviewsFragment.newInstance();
+            mainFragment = new ReviewsFragment (movieId);
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mainFragment, R.id.frame_container);
         }

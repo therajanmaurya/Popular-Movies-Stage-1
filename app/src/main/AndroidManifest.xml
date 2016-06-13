@@ -28,7 +28,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.moviedetails.MovieDetailsActivity"/>
+        <activity android:name=".ui.moviedetails.MovieDetailsActivity" />
+        <activity
+            android:name=".ui.reviews.ReviewsActivity"
+            android:label="Reviews"/>
     </application>
 
 </manifest>

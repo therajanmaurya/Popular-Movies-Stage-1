@@ -51,6 +51,15 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
     private ReviewsPresenter mReviewsPresenter;
     private ReviewsAdapter mReviewsAdapter;
     private int mPageNumber = 1;
+    private int VideoId ;
+
+    public ReviewsFragment(int aDouble) {
+        VideoId = aDouble;
+    }
+
+    public ReviewsFragment () {
+
+    }
 
     public static ReviewsFragment newInstance() {
         ReviewsFragment fragment = new ReviewsFragment();
@@ -97,7 +106,7 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
                 if (networkInfo != null && networkInfo.isConnected()) {
                     if (mSwipeRefresh.isRefreshing()) {
                         mPageNumber = 1;
-                        mReviewsPresenter.loadReviews(2412, mPageNumber);
+                        mReviewsPresenter.loadReviews(VideoId, mPageNumber);
                         Log.i(LOG_TAG, "Swipe Refresh");
                     }
                 } else {
@@ -111,8 +120,7 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
         });
 
 
-        mReviewsPresenter.loadReviews(2412, mPageNumber);
-        showProgressbar(true);
+        mReviewsPresenter.loadReviews(VideoId, mPageNumber);
 
         mRecyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
@@ -124,7 +132,8 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
                     mReviews.getResults().add(null);
                     mReviewsAdapter.notifyItemInserted(mReviews.getResults().size());
                     mPageNumber = ++mPageNumber;
-                    mReviewsPresenter.loadReviews(2412, mPageNumber);
+                    if (mPageNumber <= mReviews.getTotal_pages())
+                        mReviewsPresenter.loadReviews(VideoId, mPageNumber);
                     Log.i(LOG_TAG, "Loading more");
                 } else {
                     Log.i(LOG_TAG, "Internet not available. Not loading more posts.");
@@ -157,7 +166,6 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
             mReviews = reviews;
             mReviewsAdapter = new ReviewsAdapter(getActivity(),mReviews);
             mRecyclerView.setAdapter(mReviewsAdapter);
-            showProgressbar(false);
         } else {
             mReviews.getResults().remove(mReviews.getResults().size() - 1);
             mReviews.getResults().addAll(mReviews.getResults());

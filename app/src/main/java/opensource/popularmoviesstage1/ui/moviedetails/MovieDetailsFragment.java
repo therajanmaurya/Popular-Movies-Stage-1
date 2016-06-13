@@ -153,7 +153,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
     @OnClick(R.id.review)
     public void showReviews(){
         Intent intent = new Intent(getActivity(), ReviewsActivity.class);
-        //intent.putExtra("details", detail);
+        intent.putExtra("MovieId", mMovieDetails.getId());
         startActivity(intent);
     }
 

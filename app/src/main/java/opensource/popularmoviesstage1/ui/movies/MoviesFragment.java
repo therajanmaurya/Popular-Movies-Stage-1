@@ -50,10 +50,13 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
 
     @BindView(R.id.rv_movies)
     RecyclerView mRecyclerView;
+
     @BindView(R.id.swipe_refresh)
     ScrollChildSwipeRefreshLayout mSwipeRefresh;
+
     @BindView(R.id.progress_circular)
     ProgressBar mProgressBar;
+
     @BindView(R.id.appbar)
     Toolbar mToolbar;
 

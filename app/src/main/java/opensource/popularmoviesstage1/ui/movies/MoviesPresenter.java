@@ -9,7 +9,6 @@ import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by RajanMaurya on 02/05/16.
@@ -58,5 +57,8 @@ public class MoviesPresenter extends BasePresenter<MoviesMvpView> {
                 });
     }
 
+    public void loadFavoriteMovies() {
+
+    }
 
 }
