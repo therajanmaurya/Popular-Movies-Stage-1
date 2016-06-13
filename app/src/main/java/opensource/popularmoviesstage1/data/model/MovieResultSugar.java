@@ -9,6 +9,10 @@ import java.util.List;
 @Table
 public class MovieResultSugar extends SugarRecord {
 
+    public MovieResultSugar(){
+
+    }
+
     public MovieResultSugar(String posterPath, Boolean adult, String overview, String releaseDate, List<Integer> genreIds, int idMovieResult, String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity, Integer voteCount, Boolean video, Float voteAverage) {
         this.posterPath = posterPath;
         this.adult = adult;

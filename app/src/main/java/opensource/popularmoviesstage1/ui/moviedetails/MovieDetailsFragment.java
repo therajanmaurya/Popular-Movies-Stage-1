@@ -1,5 +1,6 @@
 package opensource.popularmoviesstage1.ui.moviedetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -31,6 +32,7 @@ import opensource.popularmoviesstage1.data.model.MovieResult;
 import opensource.popularmoviesstage1.data.model.MovieResultSugar;
 import opensource.popularmoviesstage1.data.model.Trailers;
 import opensource.popularmoviesstage1.ui.adapter.TrailerYoutubeAdapter;
+import opensource.popularmoviesstage1.ui.reviews.ReviewsActivity;
 
 /**
  * Created by Rajan Maurya on 2/5/16.
@@ -146,6 +148,13 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
                     +"");
             buttonFavorite.setImageResource(R.drawable.ic_favorite_border_black_24dp);
         }
+    }
+
+    @OnClick(R.id.review)
+    public void showReviews(){
+        Intent intent = new Intent(getActivity(), ReviewsActivity.class);
+        //intent.putExtra("details", detail);
+        startActivity(intent);
     }
 
     @Override
