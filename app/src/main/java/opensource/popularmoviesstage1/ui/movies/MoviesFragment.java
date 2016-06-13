@@ -31,10 +31,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import opensource.popularmoviesstage1.R;
 import opensource.popularmoviesstage1.data.DataManager;
+import opensource.popularmoviesstage1.data.model.MovieResult;
 import opensource.popularmoviesstage1.data.model.Movies;
 import opensource.popularmoviesstage1.ui.adapter.EndlessRecyclerOnScrollListener;
 import opensource.popularmoviesstage1.ui.adapter.MovieGridAdapter;
 import opensource.popularmoviesstage1.ui.adapter.RecyclerItemClickListner;
+import opensource.popularmoviesstage1.ui.interfaces.ItemClickCallback;
 import opensource.popularmoviesstage1.ui.moviedetails.MovieDetailsActivity;
 import opensource.popularmoviesstage1.utils.ItemOffsetDecoration;
 import opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout;
@@ -69,10 +71,8 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
 
     @Override
     public void onItemClick(View childView, int position) {
-        Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-        intent.putExtra("MOVIE_DETAILS", (new Gson()).toJson(mMovies.getResults().get
-                (position)));
-        startActivity(intent);
+
+        ((ItemClickCallback) getActivity()).onItemSelected(mMovies.getResults().get(position));
     }
 
     @Override

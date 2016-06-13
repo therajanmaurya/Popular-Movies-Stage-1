@@ -1,13 +1,22 @@
 package opensource.popularmoviesstage1.ui.movies;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.google.gson.Gson;
+
 import opensource.popularmoviesstage1.R;
+import opensource.popularmoviesstage1.data.model.MovieResult;
+import opensource.popularmoviesstage1.ui.interfaces.ItemClickCallback;
+import opensource.popularmoviesstage1.ui.moviedetails.MovieDetailsActivity;
+import opensource.popularmoviesstage1.ui.moviedetails.MovieDetailsFragment;
 import opensource.popularmoviesstage1.utils.ActivityUtils;
 
-public class MoviesActivity extends AppCompatActivity {
+public class MoviesActivity extends AppCompatActivity implements ItemClickCallback{
+
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +34,12 @@ public class MoviesActivity extends AppCompatActivity {
                     getSupportFragmentManager(), mainFragment, R.id.frame_container);
         }
 
+        if (findViewById(R.id.details) != null) {
+            mTwoPane = true;
+        } else {
+            mTwoPane = false;
+        }
+
     }
 
     @Override
@@ -36,5 +51,21 @@ public class MoviesActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemSelected(MovieResult movie) {
+        if (mTwoPane) {
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.details, new MovieDetailsFragment(movie))
+                    .commit();
+        } else {
+
+            Intent intent = new Intent(this, MovieDetailsActivity.class);
+            intent.putExtra(getString(R.string.extra_details), (new Gson()).toJson(movie));
+            startActivity(intent);
+
+        }
     }
 }
