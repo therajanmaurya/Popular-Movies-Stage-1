@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PopularMovies implements Parcelable {
+public class Movies implements Parcelable {
 
     private int page;
     private List<MovieResult> results;
@@ -64,10 +64,10 @@ public class PopularMovies implements Parcelable {
         dest.writeInt(this.totalPages);
     }
 
-    public PopularMovies() {
+    public Movies() {
     }
 
-    protected PopularMovies(Parcel in) {
+    protected Movies(Parcel in) {
         this.page = in.readInt();
         this.results = new ArrayList<MovieResult>();
         in.readList(this.results, MovieResult.class.getClassLoader());
@@ -75,15 +75,15 @@ public class PopularMovies implements Parcelable {
         this.totalPages = in.readInt();
     }
 
-    public static final Parcelable.Creator<PopularMovies> CREATOR = new Parcelable.Creator<PopularMovies>() {
+    public static final Parcelable.Creator<Movies> CREATOR = new Parcelable.Creator<Movies>() {
         @Override
-        public PopularMovies createFromParcel(Parcel source) {
-            return new PopularMovies(source);
+        public Movies createFromParcel(Parcel source) {
+            return new Movies(source);
         }
 
         @Override
-        public PopularMovies[] newArray(int size) {
-            return new PopularMovies[size];
+        public Movies[] newArray(int size) {
+            return new Movies[size];
         }
     };
 }

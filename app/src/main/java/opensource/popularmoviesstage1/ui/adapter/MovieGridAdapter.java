@@ -20,10 +20,12 @@ public class MovieGridAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private List<MovieResult> mResults;
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
+    Context mContext;
 
 
     public MovieGridAdapter(Context context, List<MovieResult> results) {
         mResults = results;
+        mContext = context;
     }
 
     public void setResults(List<MovieResult> results) {

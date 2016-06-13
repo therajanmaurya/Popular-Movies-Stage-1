@@ -3,6 +3,7 @@ package opensource.popularmoviesstage1.data.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -20,9 +21,9 @@ public class MovieResult implements Parcelable {
     @SerializedName("release_date")
     public String releaseDate;
 
-    @SerializedName("genre_ids")
-    public List<Integer> genreIds;
-    public int id;
+    @Expose
+    @SerializedName("id")
+    public int movieId;
 
     @SerializedName("original_title")
     public String originalTitle;
@@ -41,6 +42,25 @@ public class MovieResult implements Parcelable {
 
     @SerializedName("vote_average")
     public Float voteAverage;
+
+    public MovieResult(String originalLanguage, String posterPath, Boolean adult, String
+            overview, String releaseDate, int moviId, String originalTitle,
+                       String title, String backdropPath, Double popularity, int voteCount,
+                       Boolean video, Float voteAverage) {
+        this.originalLanguage = originalLanguage;
+        this.posterPath = posterPath;
+        this.adult = adult;
+        this.overview = overview;
+        this.releaseDate = releaseDate;
+        this.movieId = moviId;
+        this.originalTitle = originalTitle;
+        this.title = title;
+        this.backdropPath = backdropPath;
+        this.popularity = popularity;
+        this.voteCount = voteCount;
+        this.video = video;
+        this.voteAverage = voteAverage;
+    }
 
     public String getPosterPath() {
         return posterPath;
@@ -74,14 +94,6 @@ public class MovieResult implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
-    }
-
     public String getOriginalTitle() {
         return originalTitle;
     }
@@ -91,11 +103,11 @@ public class MovieResult implements Parcelable {
     }
 
     public int getId() {
-        return id;
+        return movieId;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.movieId = id;
     }
 
     public String getOriginalLanguage() {
@@ -165,8 +177,7 @@ public class MovieResult implements Parcelable {
         dest.writeValue(this.adult);
         dest.writeString(this.overview);
         dest.writeString(this.releaseDate);
-        dest.writeList(this.genreIds);
-        dest.writeInt(this.id);
+        dest.writeInt(this.movieId);
         dest.writeString(this.originalTitle);
         dest.writeString(this.originalLanguage);
         dest.writeString(this.title);
@@ -185,9 +196,7 @@ public class MovieResult implements Parcelable {
         this.adult = (Boolean) in.readValue(Boolean.class.getClassLoader());
         this.overview = in.readString();
         this.releaseDate = in.readString();
-        this.genreIds = new ArrayList<Integer>();
-        in.readList(this.genreIds, Integer.class.getClassLoader());
-        this.id = in.readInt();
+        this.movieId = in.readInt();
         this.originalTitle = in.readString();
         this.originalLanguage = in.readString();
         this.title = in.readString();

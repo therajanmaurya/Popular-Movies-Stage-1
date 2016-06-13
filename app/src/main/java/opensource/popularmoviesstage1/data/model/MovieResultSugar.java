@@ -1,5 +1,6 @@
 package opensource.popularmoviesstage1.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 
@@ -13,12 +14,11 @@ public class MovieResultSugar extends SugarRecord {
 
     }
 
-    public MovieResultSugar(String posterPath, Boolean adult, String overview, String releaseDate, List<Integer> genreIds, int idMovieResult, String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity, Integer voteCount, Boolean video, Float voteAverage) {
+    public MovieResultSugar(String posterPath, Boolean adult, String overview, String releaseDate, int idMovieResult, String originalTitle, String originalLanguage, String title, String backdropPath, Double popularity, Integer voteCount, Boolean video, Float voteAverage) {
         this.posterPath = posterPath;
         this.adult = adult;
         this.overview = overview;
         this.releaseDate = releaseDate;
-        this.genreIds = genreIds;
         this.idMovieResult = idMovieResult;
         this.originalTitle = originalTitle;
         this.originalLanguage = originalLanguage;
@@ -38,7 +38,7 @@ public class MovieResultSugar extends SugarRecord {
     private Boolean adult;
     private String overview;
     private String releaseDate;
-    private List<Integer> genreIds = new ArrayList<Integer>();
+
     private int idMovieResult;
     private String originalTitle;
     private String originalLanguage;
@@ -55,6 +55,7 @@ public class MovieResultSugar extends SugarRecord {
     public String getPosterPath() {
         return posterPath;
     }
+
 
     /**
      * @param posterPath The poster_path
@@ -103,20 +104,6 @@ public class MovieResultSugar extends SugarRecord {
      */
     public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
-    }
-
-    /**
-     * @return The genreIds
-     */
-    public List<Integer> getGenreIds() {
-        return genreIds;
-    }
-
-    /**
-     * @param genreIds The genre_ids
-     */
-    public void setGenreIds(List<Integer> genreIds) {
-        this.genreIds = genreIds;
     }
 
     /**

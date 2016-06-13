@@ -1,7 +1,7 @@
 package opensource.popularmoviesstage1.data;
 
 import opensource.popularmoviesstage1.BuildConfig;
-import opensource.popularmoviesstage1.data.model.PopularMovies;
+import opensource.popularmoviesstage1.data.model.Movies;
 import opensource.popularmoviesstage1.data.model.Reviews;
 import opensource.popularmoviesstage1.data.model.Trailers;
 import opensource.popularmoviesstage1.data.remote.BaseApiManager;
@@ -22,7 +22,7 @@ public class DataManager {
      *
      * @return List of Movies
      */
-    public Observable<PopularMovies> getMovies(String categories,int pageNo){
+    public Observable<Movies> getMovies(String categories, int pageNo){
         return mBaseApiManager.getMovieApi().getMovies(categories, API_KEY, pageNo);
     }
 

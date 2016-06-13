@@ -1,6 +1,6 @@
 package opensource.popularmoviesstage1.data.remote;
 
-import opensource.popularmoviesstage1.data.model.PopularMovies;
+import opensource.popularmoviesstage1.data.model.Movies;
 import opensource.popularmoviesstage1.data.model.Reviews;
 import opensource.popularmoviesstage1.data.model.Trailers;
 import retrofit2.http.GET;
@@ -14,18 +14,18 @@ import rx.Observable;
 public interface MovieService {
 
     @GET("movie/{categories}")
-    Observable<PopularMovies> getMovies(@Path("categories") String s,
-                                        @Query("api_key") String key,
-                                        @Query("page") int pagination);
+    Observable<Movies> getMovies(@Path("categories") String s,
+                                 @Query("api_key") String key,
+                                 @Query("page") int pagination);
 
 
-    @GET("movie/{id}/videos")
-    Observable<Trailers> getMovieTrailers(@Path("id") int id,
+    @GET("movie/{movieId}/videos")
+    Observable<Trailers> getMovieTrailers(@Path("movieId") int id,
                                           @Query("api_key") String key,
                                           @Query("page") int pagination);
 
-    @GET("movie/{id}/reviews")
-    Observable<Reviews> getMovieReviews(@Path("id") int id,
+    @GET("movie/{movieId}/reviews")
+    Observable<Reviews> getMovieReviews(@Path("movieId") int id,
                                         @Query("api_key") String key,
                                         @Query("page") int pagination);
 

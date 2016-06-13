@@ -31,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import opensource.popularmoviesstage1.R;
 import opensource.popularmoviesstage1.data.DataManager;
-import opensource.popularmoviesstage1.data.model.PopularMovies;
+import opensource.popularmoviesstage1.data.model.Movies;
 import opensource.popularmoviesstage1.ui.adapter.EndlessRecyclerOnScrollListener;
 import opensource.popularmoviesstage1.ui.adapter.MovieGridAdapter;
 import opensource.popularmoviesstage1.ui.adapter.RecyclerItemClickListner;
@@ -60,7 +60,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     @BindView(R.id.appbar)
     Toolbar mToolbar;
 
-    private PopularMovies mPopularMovies;
+    private Movies mMovies;
     private DataManager dataManager;
     private MoviesPresenter mMainPresenter;
     private MovieGridAdapter mMovieGridAdapter;
@@ -70,7 +70,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     @Override
     public void onItemClick(View childView, int position) {
         Intent intent = new Intent(getActivity(), MovieDetailsActivity.class);
-        intent.putExtra("MOVIE_DETAILS", (new Gson()).toJson(mPopularMovies.getResults().get
+        intent.putExtra("MOVIE_DETAILS", (new Gson()).toJson(mMovies.getResults().get
                 (position)));
         startActivity(intent);
     }
@@ -92,7 +92,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPopularMovies = new PopularMovies();
+        mMovies = new Movies();
         dataManager = new DataManager();
         mMainPresenter = new MoviesPresenter(dataManager);
     }
@@ -160,8 +160,8 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected()) {
-                    mPopularMovies.getResults().add(null);
-                    mMovieGridAdapter.notifyItemInserted(mPopularMovies.getResults().size());
+                    mMovies.getResults().add(null);
+                    mMovieGridAdapter.notifyItemInserted(mMovies.getResults().size());
                     mPageNumber = ++mPageNumber;
                     mMainPresenter.loadMovies(category, mPageNumber);
                     Log.i(LOG_TAG, "Loading more");
@@ -183,15 +183,15 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     }
 
     @Override
-    public void showMovies(PopularMovies popularMovies) {
+    public void showMovies(Movies movies) {
         if (mPageNumber == 1) {
-            mPopularMovies = popularMovies;
-            mMovieGridAdapter = new MovieGridAdapter(getActivity(), popularMovies.getResults());
+            mMovies = movies;
+            mMovieGridAdapter = new MovieGridAdapter(getActivity(), movies.getResults());
             mRecyclerView.setAdapter(mMovieGridAdapter);
             showProgressbar(false);
         } else {
-            mPopularMovies.getResults().remove(mPopularMovies.getResults().size() - 1);
-            mPopularMovies.getResults().addAll(popularMovies.getResults());
+            mMovies.getResults().remove(mMovies.getResults().size() - 1);
+            mMovies.getResults().addAll(movies.getResults());
         }
 
         mRecyclerView.setVisibility(View.VISIBLE);
@@ -199,6 +199,14 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         if (mSwipeRefresh.isRefreshing()) {
             mSwipeRefresh.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void showFavoriteMovies(Movies movies) {
+
+        mMovies.getResults().clear();
+        mMovies.getResults().addAll(movies.getResults());
+        mMovieGridAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -240,6 +248,9 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
                         mMainPresenter.loadMovies(getResources()
                                 .getString(R.string.category_top_rated), mPageNumber);
                         break;
+                    case R.id.favorite:
+                        mMainPresenter.loadFavoriteMovies();
+                        break;
                     default:
                         mMainPresenter.loadMovies(getResources()
                                 .getString(R.string.category_popular), mPageNumber);
@@ -255,7 +266,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
-        savedInstanceState.putParcelable("MoviesList", mPopularMovies);
+        savedInstanceState.putParcelable("MoviesList", mMovies);
 
     }
 
@@ -264,7 +275,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         super.onActivityCreated(savedInstanceState);
         if (savedInstanceState != null) {
             // Restore last state for checked position.
-            mPopularMovies = savedInstanceState.getParcelable("MoviesList");
+            mMovies = savedInstanceState.getParcelable("MoviesList");
         }
 
     }

@@ -20,4 +20,7 @@
     <item
         android:id="@+id/latest"
         android:title="Latest Movies" />
+    <item
+        android:id="@+id/favorite"
+        android:title="Favorite Movies" />
 </menu>

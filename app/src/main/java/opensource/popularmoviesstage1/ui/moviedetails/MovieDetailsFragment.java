@@ -131,7 +131,6 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
                     mMovieDetails.getAdult(),
                     mMovieDetails.getOverview(),
                     mMovieDetails.getReleaseDate(),
-                    mMovieDetails.getGenreIds(),
                     mMovieDetails.getId(),
                     mMovieDetails.getOriginalTitle(),
                     mMovieDetails.getOriginalLanguage(),
