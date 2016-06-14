@@ -32,6 +32,7 @@ import opensource.popularmoviesstage1.data.model.MovieResult;
 import opensource.popularmoviesstage1.data.model.MovieResultSugar;
 import opensource.popularmoviesstage1.data.model.Trailers;
 import opensource.popularmoviesstage1.ui.adapter.TrailerYoutubeAdapter;
+import opensource.popularmoviesstage1.ui.movies.MoviesFragment;
 import opensource.popularmoviesstage1.ui.reviews.ReviewsActivity;
 
 /**
@@ -41,6 +42,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
 
 
     public final String LOG_TAG = getClass().getSimpleName();
+    public static final String MOVIERESULT = "MOVIERESULT";
 
     private MovieResult mMovieDetails;
     private Trailers mTrailers;
@@ -80,14 +82,14 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
     LinearLayoutManager layoutManager;
     TrailerYoutubeAdapter mTrailerYoutubeAdapter;
 
-    public MovieDetailsFragment(MovieResult result){
-        mMovieDetails = result;
+
+    public static MovieDetailsFragment newInstance(MovieResult movieResult) {
+        MovieDetailsFragment fragment = new MovieDetailsFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(MOVIERESULT, movieResult);
+        fragment.setArguments(args);
+        return fragment;
     }
-
-    public MovieDetailsFragment() {
-
-    }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,8 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
 
         ButterKnife.bind(this, rootView);
         mMovieDetailsPresenter.attachView(this);
+
+        mMovieDetails = getArguments().getParcelable(MOVIERESULT);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         if (((AppCompatActivity) getActivity()).getSupportActionBar() != null){

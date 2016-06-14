@@ -36,7 +36,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .findFragmentById(R.id.frame_container);
         if (mainFragment == null) {
             // Create the fragment
-            mainFragment = new MovieDetailsFragment(result);
+            mainFragment = MovieDetailsFragment.newInstance(result);
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mainFragment, R.id.frame_container);
         }

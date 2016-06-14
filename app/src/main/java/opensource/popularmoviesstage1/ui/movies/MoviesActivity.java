@@ -58,7 +58,7 @@ public class MoviesActivity extends AppCompatActivity implements ItemClickCallba
         if (mTwoPane) {
 
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.details, new MovieDetailsFragment(movie))
+                    .replace(R.id.details, MovieDetailsFragment.newInstance(movie))
                     .commit();
         } else {
 
