@@ -38,7 +38,7 @@ public class ReviewsActivity extends AppCompatActivity{
         switch (item.getItemId()) {
             case android.R.id.home:
                 // Open the navigation drawer when the home icon is selected from the toolbar.
-
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);

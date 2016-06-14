@@ -90,6 +90,11 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
         movieId = getArguments().getInt(MOVIE_ID);
 
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null){
+            ((AppCompatActivity) getActivity())
+                    .getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         mToolbar.setTitle(getString(R.string.app_name));
 
