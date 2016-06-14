@@ -33,6 +33,7 @@ import opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout;
 public class ReviewsFragment extends Fragment implements ReviewsMvpView {
 
     public final String LOG_TAG = getClass().getSimpleName();
+    public static final String MOVIE_ID = "MOVIE_ID";
 
     @BindView(R.id.rv_movies)
     RecyclerView mRecyclerView;
@@ -51,20 +52,20 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
     private ReviewsPresenter mReviewsPresenter;
     private ReviewsAdapter mReviewsAdapter;
     private int mPageNumber = 1;
-    private int VideoId ;
+    private int movieId;
 
     public ReviewsFragment(int aDouble) {
-        VideoId = aDouble;
+        movieId = aDouble;
     }
 
     public ReviewsFragment () {
 
     }
 
-    public static ReviewsFragment newInstance() {
+    public static ReviewsFragment newInstance(int movieId) {
         ReviewsFragment fragment = new ReviewsFragment();
         Bundle args = new Bundle();
-        //args.putInt("type", type);
+        args.putInt(MOVIE_ID, movieId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,6 +87,8 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
         ButterKnife.bind(this, rootView);
         mReviewsPresenter.attachView(this);
 
+        movieId = getArguments().getInt(MOVIE_ID);
+
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
         mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
         mToolbar.setTitle(getString(R.string.app_name));
@@ -106,7 +109,7 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
                 if (networkInfo != null && networkInfo.isConnected()) {
                     if (mSwipeRefresh.isRefreshing()) {
                         mPageNumber = 1;
-                        mReviewsPresenter.loadReviews(VideoId, mPageNumber);
+                        mReviewsPresenter.loadReviews(movieId, mPageNumber);
                         Log.i(LOG_TAG, "Swipe Refresh");
                     }
                 } else {
@@ -120,7 +123,7 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
         });
 
 
-        mReviewsPresenter.loadReviews(VideoId, mPageNumber);
+        mReviewsPresenter.loadReviews(movieId, mPageNumber);
 
         mRecyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
@@ -133,7 +136,7 @@ public class ReviewsFragment extends Fragment implements ReviewsMvpView {
                     mReviewsAdapter.notifyItemInserted(mReviews.getResults().size());
                     mPageNumber = ++mPageNumber;
                     if (mPageNumber <= mReviews.getTotal_pages())
-                        mReviewsPresenter.loadReviews(VideoId, mPageNumber);
+                        mReviewsPresenter.loadReviews(movieId, mPageNumber);
                     Log.i(LOG_TAG, "Loading more");
                 } else {
                     Log.i(LOG_TAG, "Internet not available. Not loading more posts.");

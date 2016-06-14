@@ -27,7 +27,7 @@ public class ReviewsActivity extends AppCompatActivity{
                 .findFragmentById(R.id.frame_container);
         if (mainFragment == null) {
             // Create the fragment
-            mainFragment = new ReviewsFragment (movieId);
+            mainFragment = ReviewsFragment.newInstance(movieId);
             ActivityUtils.addFragmentToActivity(
                     getSupportFragmentManager(), mainFragment, R.id.frame_container);
         }
