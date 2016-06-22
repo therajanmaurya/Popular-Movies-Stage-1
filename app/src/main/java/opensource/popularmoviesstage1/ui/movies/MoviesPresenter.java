@@ -42,6 +42,7 @@ public class MoviesPresenter extends BasePresenter<MoviesMvpView> {
     }
 
     public void loadMovies(String categories,int pageno){
+
         mSubscriptions = mDataManager.getMovies(categories,pageno)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())

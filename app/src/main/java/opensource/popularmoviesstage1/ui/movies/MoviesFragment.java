@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -67,7 +68,6 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
     private DataManager dataManager;
     private MoviesPresenter mMainPresenter;
     private MovieGridAdapter mMovieGridAdapter;
-    private String category;
     private int mPageNumber = 1;
 
     @Override
@@ -106,7 +106,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         ButterKnife.bind(this, rootView);
         mMainPresenter.attachView(this);
         ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-        mToolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        mToolbar.setTitleTextColor(ContextCompat.getColor(getActivity(), R.color.white));
         mToolbar.setTitle(getString(R.string.app_name));
 
         final LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(),
@@ -119,11 +119,6 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         ItemOffsetDecoration itemDecoration = new ItemOffsetDecoration(getActivity(), R.dimen
                 .item_offset);
         mRecyclerView.addItemDecoration(itemDecoration);
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences
-                (getActivity());
-        category = sharedPreferences.getString(getString(R.string.category_key), getString(R
-                .string.pref_default));
 
 
         mSwipeRefresh.setColorSchemeResources(R.color.colorAccent, R.color.colorAccent, R.color
@@ -247,16 +242,13 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
                         break;
                     case R.id.latest:
                         PrefManager.setCaetgory(PrefManager.TOP_RATED_MOVIES);
-                        mMainPresenter.loadMovies(getResources()
-                                .getString(R.string.category_top_rated), mPageNumber);
+                        mMainPresenter.loadMovies(PrefManager.getCategory(), mPageNumber);
                         break;
                     case R.id.favorite:
-                        PrefManager.setCaetgory(PrefManager.FAVORITE_MOVIES);
                         mMainPresenter.loadFavoriteMovies();
                         break;
                     default:
-                        mMainPresenter.loadMovies(getResources()
-                                .getString(R.string.category_popular), mPageNumber);
+                        mMainPresenter.loadMovies(PrefManager.getCategory(), mPageNumber);
                         break;
                 }
                 return true;
