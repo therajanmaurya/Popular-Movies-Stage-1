@@ -219,4 +219,21 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsMvpVie
         super.onDestroyView();
         mMovieDetailsPresenter.detachView();
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putParcelable("MoviesDetails", mMovieDetails);
+
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            mMovieDetails = savedInstanceState.getParcelable("MoviesDetails");
+        }
+
+    }
 }
