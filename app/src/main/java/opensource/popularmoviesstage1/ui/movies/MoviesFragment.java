@@ -39,6 +39,7 @@ import opensource.popularmoviesstage1.ui.adapter.RecyclerItemClickListner;
 import opensource.popularmoviesstage1.ui.interfaces.ItemClickCallback;
 import opensource.popularmoviesstage1.ui.moviedetails.MovieDetailsActivity;
 import opensource.popularmoviesstage1.utils.ItemOffsetDecoration;
+import opensource.popularmoviesstage1.utils.PrefManager;
 import opensource.popularmoviesstage1.utils.ScrollChildSwipeRefreshLayout;
 
 /**
@@ -136,7 +137,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
                 if (networkInfo != null && networkInfo.isConnected()) {
                     if (mSwipeRefresh.isRefreshing()) {
                         mPageNumber = 1;
-                        mMainPresenter.loadMovies(category, mPageNumber);
+                        mMainPresenter.loadMovies(PrefManager.getCategory(), mPageNumber);
                         Log.i(LOG_TAG, "Swipe Refresh");
                     }
                 } else {
@@ -150,10 +151,10 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
         });
 
 
-        mMainPresenter.loadMovies(category, mPageNumber);
+        mMainPresenter.loadMovies(PrefManager.getCategory(), mPageNumber);
         showProgressbar(true);
 
-        mRecyclerView.setOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
+        mRecyclerView.addOnScrollListener(new EndlessRecyclerOnScrollListener(layoutManager) {
             @Override
             public void onLoadMore(int current_page) {
                 ConnectivityManager connMgr = (ConnectivityManager) getActivity()
@@ -163,7 +164,7 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
                     mMovies.getResults().add(null);
                     mMovieGridAdapter.notifyItemInserted(mMovies.getResults().size());
                     mPageNumber = ++mPageNumber;
-                    mMainPresenter.loadMovies(category, mPageNumber);
+                    mMainPresenter.loadMovies(PrefManager.getCategory(), mPageNumber);
                     Log.i(LOG_TAG, "Loading more");
                 } else {
                     Log.i(LOG_TAG, "Internet not available. Not loading more posts.");
@@ -241,14 +242,16 @@ public class MoviesFragment extends Fragment implements RecyclerItemClickListner
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.popular:
-                        mMainPresenter.loadMovies(getResources()
-                                .getString(R.string.category_popular), mPageNumber);
+                        PrefManager.setCaetgory(PrefManager.POPULAR_MOVIES);
+                        mMainPresenter.loadMovies(PrefManager.getCategory(), mPageNumber);
                         break;
                     case R.id.latest:
+                        PrefManager.setCaetgory(PrefManager.TOP_RATED_MOVIES);
                         mMainPresenter.loadMovies(getResources()
                                 .getString(R.string.category_top_rated), mPageNumber);
                         break;
                     case R.id.favorite:
+                        PrefManager.setCaetgory(PrefManager.FAVORITE_MOVIES);
                         mMainPresenter.loadFavoriteMovies();
                         break;
                     default:
