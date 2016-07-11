@@ -1,8 +1,10 @@
 package opensource.popularmoviesstage1.ui.adapter;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -119,10 +121,18 @@ public class TrailerYoutubeAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         @Override
         public void onClick(View v) {
-            Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, mContext
-                    .getResources().getString(R.string.google_api_key),
-                    mTrailers.getResults().get(getLayoutPosition()).getKey(), 100, true, false);
-            mContext.startActivity(intent);
+
+            try {
+                Intent intent = YouTubeStandalonePlayer.createVideoIntent((Activity) mContext, mContext
+                                .getResources().getString(R.string.google_api_key),
+                        mTrailers.getResults().get(getLayoutPosition()).getKey(), 100, true, false);
+                mContext.startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                mContext.startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("http://www.youtube.com/watch?v="
+                                + mTrailers.getResults().get(getLayoutPosition()).getKey())));
+            }
+
         }
     }
 }
